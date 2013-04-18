@@ -1,0 +1,765 @@
+<?xml version="1.0"?>
+<xml>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>h1833924542</Comment>
+		<IsEnabled>false</IsEnabled>
+		<EventType>3</EventType>
+		<EventNumber>3</EventNumber>
+		<ControlID>h1833924542</ControlID>
+		<ControlName>Create pro-forma (h1997496132)</ControlName>
+		<ControlType>5</ControlType>
+		<ApplicationName>ManageSalesOrders</ApplicationName>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>// SAM Mouldings
+// Adapt 
+// Added by E Crawford
+// Date 15 November 2007
+//
+// Details
+// Code will check current users role permissions
+// and will not allow the CREATE PRO-FORMA button to be used
+// if they are not in the appropriate user roles
+
+
+
+var objuserBean = getBusinessObject(&quot;PersonBean&quot;);
+var objUserEntity = objuserBean.get(USERID);
+
+var objRoles = objUserEntity.getRoles();
+var foundRole = 0;
+   for (var i = 0; i &lt;objRoles.size(); i++) {
+       var objRole = objRoles.get(i);
+       if (objRole.getRoleID() == &quot;SUPERADMIN&quot;) {
+           foundRole = 1;
+           break;
+        }
+      if (objRole.getRoleID() == &quot;FManager&quot;) {
+           foundRole = 1;
+           break;
+        }
+
+ }
+
+if (foundRole ==0) {
+    return false;
+}</Code>
+		<EventNumber>3</EventNumber>
+		<RevisionSerial>33</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:48.733</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<InTransaction>false</InTransaction>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:48.727</CreatedDate>
+		<ModifiedBy>EFACS_Admin</ModifiedBy>
+		<ModifiedDate>2011-10-30 21:01:02.363</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>changedespatchdate</Comment>
+		<IsEnabled>false</IsEnabled>
+		<EventType>2</EventType>
+		<EventNumber>7</EventNumber>
+		<ControlID>h_1411760242</ControlID>
+		<ControlName>custom.x_despatchdate (frmEntitySalesOrder)</ControlName>
+		<ControlType>1</ControlType>
+		<ApplicationName>ManageSalesOrders</ApplicationName>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>var SalesOrderID = getFormFieldValue(&quot;frmEntitySalesOrderKey&quot;,&quot;salesOrderID&quot;);
+var objSo = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrder&quot;, new Array(SalesOrderID));
+var newduedate = CURRENT_FIELD.getValue();
+var SalesItem = 1;
+var SalesItemEntity = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrderItem&quot;, new Array(SalesOrderID,SalesItem));
+
+while (SalesItemEntity != null) { 
+
+SalesItemEntity.setDueDate(newduedate);
+SalesItem = SalesItem + 1;
+SalesItemEntity = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrderItem&quot;, new Array(SalesOrderID,SalesItem));
+}
+
+</Code>
+		<EventNumber>7</EventNumber>
+		<RevisionSerial>37</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.07</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<InTransaction>false</InTransaction>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.067</CreatedDate>
+		<ModifiedBy>EFACS_Admin</ModifiedBy>
+		<ModifiedDate>2011-10-30 21:01:06.747</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>changecustomerref</Comment>
+		<IsEnabled>false</IsEnabled>
+		<EventType>2</EventType>
+		<EventNumber>8</EventNumber>
+		<ControlID>h_1468784395</ControlID>
+		<ControlName>customerOrderReference (frmEntitySalesOrder)</ControlName>
+		<ControlType>1</ControlType>
+		<ApplicationName>ManageSalesOrders</ApplicationName>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>var SalesOrderID = getFormFieldValue(&quot;frmEntitySalesOrderKey&quot;,&quot;salesOrderID&quot;);
+var objSo = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrder&quot;, new Array(SalesOrderID));
+var newcustomerref = CURRENT_FIELD.getValue();
+var SalesItem = 1;
+var SalesItemEntity = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrderItem&quot;, new Array(SalesOrderID,SalesItem));
+
+while (SalesItemEntity != null) { 
+
+SalesItemEntity.setCustomerOrderReference(newcustomerref);
+SalesItem = SalesItem + 1;
+SalesItemEntity = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrderItem&quot;, new Array(SalesOrderID,SalesItem));
+}
+</Code>
+		<EventNumber>8</EventNumber>
+		<RevisionSerial>38</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.08</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<InTransaction>false</InTransaction>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.077</CreatedDate>
+		<ModifiedBy>EFACS_Admin</ModifiedBy>
+		<ModifiedDate>2011-10-30 20:57:29.067</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>changepricereference</Comment>
+		<IsEnabled>false</IsEnabled>
+		<EventType>2</EventType>
+		<EventNumber>9</EventNumber>
+		<ControlID>h46580072</ControlID>
+		<ControlName>custom.x_plqref (frmEntitySalesOrder)</ControlName>
+		<ControlType>1</ControlType>
+		<ApplicationName>ManageSalesOrders</ApplicationName>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>var SalesOrderID = getFormFieldValue(&quot;frmEntitySalesOrderKey&quot;,&quot;salesOrderID&quot;);
+var objSo = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrder&quot;, new Array(SalesOrderID));
+var newpriceref = CURRENT_FIELD.getValue();
+var SalesItem = 1;
+var SalesItemEntity = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrderItemCustom&quot;, new Array(SalesOrderID,SalesItem));
+
+while (SalesItemEntity != null) { 
+
+SalesItemEntity.setXi_plqref(newpriceref);
+SalesItem = SalesItem + 1;
+SalesItemEntity = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrderItemCustom&quot;, new Array(SalesOrderID,SalesItem));
+}
+
+</Code>
+		<EventNumber>9</EventNumber>
+		<RevisionSerial>39</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.087</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<InTransaction>false</InTransaction>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.083</CreatedDate>
+		<ModifiedBy>EFACS_Admin</ModifiedBy>
+		<ModifiedDate>2011-10-30 20:57:18.987</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>changeinstructions</Comment>
+		<IsEnabled>false</IsEnabled>
+		<EventType>2</EventType>
+		<EventNumber>10</EventNumber>
+		<ControlID>h38556068</ControlID>
+		<ControlName>custom.x_instruct (frmEntitySalesOrder)</ControlName>
+		<ControlType>1</ControlType>
+		<ApplicationName>ManageSalesOrders</ApplicationName>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>var SalesOrderID = getFormFieldValue(&quot;frmEntitySalesOrderKey&quot;,&quot;salesOrderID&quot;);
+var objSo = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrder&quot;, new Array(SalesOrderID));
+var newinstruct = CURRENT_FIELD.getValue();
+var SalesItem = 1;
+var SalesItemEntity = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrderItemCustom&quot;, new Array(SalesOrderID,SalesItem));
+
+while (SalesItemEntity != null) { 
+
+SalesItemEntity.setXi_instruct(newinstruct);
+SalesItem = SalesItem + 1;
+SalesItemEntity = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrderItemCustom&quot;, new Array(SalesOrderID,SalesItem));
+}
+
+</Code>
+		<EventNumber>10</EventNumber>
+		<RevisionSerial>40</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.097</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<InTransaction>false</InTransaction>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.093</CreatedDate>
+		<ModifiedBy>EFACS_Admin</ModifiedBy>
+		<ModifiedDate>2011-10-30 21:01:17.927</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>samprospect1</Comment>
+		<IsEnabled>false</IsEnabled>
+		<EventType>3</EventType>
+		<EventNumber>11</EventNumber>
+		<ControlID>h361315665</ControlID>
+		<ControlName>Save (h1997496132)</ControlName>
+		<ControlType>5</ControlType>
+		<ApplicationName>ManageSalesOrders</ApplicationName>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>// grab the customer ID from the form
+
+var xcust = getFormFieldByAdaptID(&quot;h2008924638&quot;).getValue();
+
+
+// get the customer custom entity
+
+var custRecord = COMPANY_ENTITY_MANAGER.find(&quot;CustomerCustom&quot;, new Array(xcust));
+
+//check a value was returned
+
+if (custRecord != null)
+{
+
+//get value from custom entity
+
+var prospect = custRecord.getSamprospect();
+
+// if checkbox is checked produce a message and prevent saving
+
+if (prospect == 1)
+{
+showWarningMessageBox(&quot;Cannot save order for Prospects&quot;, new MessageBoxButton(&quot;OK&quot;));
+return false;
+}
+
+
+
+}
+</Code>
+		<EventNumber>11</EventNumber>
+		<RevisionSerial>41</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.107</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<InTransaction>false</InTransaction>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.103</CreatedDate>
+		<ModifiedBy>EFACS_Admin</ModifiedBy>
+		<ModifiedDate>2011-10-30 21:01:24.583</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>samprospect2</Comment>
+		<IsEnabled>false</IsEnabled>
+		<EventType>3</EventType>
+		<EventNumber>12</EventNumber>
+		<ControlID>h_1301610404</ControlID>
+		<ControlName>Save and close (h1997496132)</ControlName>
+		<ControlType>5</ControlType>
+		<ApplicationName>ManageSalesOrders</ApplicationName>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>// grab the customer ID from the form
+
+var xcust = getFormFieldByAdaptID(&quot;h2008924638&quot;).getValue();
+
+
+// get the customer custom entity
+
+var custRecord = COMPANY_ENTITY_MANAGER.find(&quot;CustomerCustom&quot;, new Array(xcust));
+
+//check a value was returned
+
+if (custRecord != null)
+{
+
+//get value from custom entity
+
+var prospect = custRecord.getSamprospect();
+
+// if checkbox is checked produce a message and prevent saving
+
+if (prospect == 1)
+{
+showWarningMessageBox(&quot;Cannot save order for Prospects&quot;, new MessageBoxButton(&quot;OK&quot;));
+return false;
+}
+
+
+
+}
+</Code>
+		<EventNumber>12</EventNumber>
+		<RevisionSerial>42</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.117</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<InTransaction>false</InTransaction>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.113</CreatedDate>
+		<ModifiedBy>EFACS_Admin</ModifiedBy>
+		<ModifiedDate>2011-10-30 21:00:45.89</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>samprospect3</Comment>
+		<IsEnabled>false</IsEnabled>
+		<EventType>3</EventType>
+		<EventNumber>13</EventNumber>
+		<ControlID>h_1709702528</ControlID>
+		<ControlName>Save and new (h1997496132)</ControlName>
+		<ControlType>5</ControlType>
+		<ApplicationName>ManageSalesOrders</ApplicationName>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>// grab the customer ID from the form
+
+var xcust = getFormFieldByAdaptID(&quot;h2008924638&quot;).getValue();
+
+
+// get the customer custom entity
+
+var custRecord = COMPANY_ENTITY_MANAGER.find(&quot;CustomerCustom&quot;, new Array(xcust));
+
+//check a value was returned
+
+if (custRecord != null)
+{
+
+//get value from custom entity
+
+var prospect = custRecord.getSamprospect();
+
+// if checkbox is checked produce a message and prevent saving
+
+if (prospect == 1)
+{
+showWarningMessageBox(&quot;Cannot save order for Prospects&quot;, new MessageBoxButton(&quot;OK&quot;));
+return false;
+}
+
+
+
+}
+</Code>
+		<EventNumber>13</EventNumber>
+		<RevisionSerial>43</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.123</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<InTransaction>false</InTransaction>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.12</CreatedDate>
+		<ModifiedBy>EFACS_Admin</ModifiedBy>
+		<ModifiedDate>2011-10-30 21:02:03.497</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>change delivery address message</Comment>
+		<IsEnabled>false</IsEnabled>
+		<EventType>2</EventType>
+		<EventNumber>16</EventNumber>
+		<ControlID>h1584442465</ControlID>
+		<ControlName>deliveryAddressID (frmEntitySalesOrder)</ControlName>
+		<ControlType>1</ControlType>
+		<ApplicationName>ManageSalesOrders</ApplicationName>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>{
+showInformationMessageBox(&quot;If this is a Pick and Pack order, please change Despatch Note address.&quot;, 
+new MessageBoxButton(&quot;OK&quot;, &quot;Green Checkmark&quot;));
+
+return false;
+
+}
+
+
+
+</Code>
+		<EventNumber>16</EventNumber>
+		<RevisionSerial>46</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.15</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<InTransaction>false</InTransaction>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-27 20:52:49.147</CreatedDate>
+		<ModifiedBy>EFACS_Admin</ModifiedBy>
+		<ModifiedDate>2011-10-30 21:01:57.19</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>IWDTestArray</Comment>
+		<IsEnabled>false</IsEnabled>
+		<EventType>1</EventType>
+		<EventNumber>22</EventNumber>
+		<ControlID>h_1468784395</ControlID>
+		<ControlName>customerOrderReference (frmEntitySalesOrder)</ControlName>
+		<ControlType>1</ControlType>
+		<ApplicationName>ManageSalesOrders</ApplicationName>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>var partz = new Array(10);
+partz[0] = &apos;Hi Ian&apos;;
+showInformationMessageBox(&quot;Msg is :&quot;+partz[0], new MessageBoxButton(&quot;Ok&quot;));
+
+
+//var data[0][0] = new Integer(99,99);
+//data.setdata([[1,2,3],[4,5,6]]);
+//new MessageBoxButton(data.getdata(), ok);
+
+
+
+
+
+
+
+</Code>
+		<EventNumber>22</EventNumber>
+		<RevisionSerial>121</RevisionSerial>
+		<RevisionNumber>6</RevisionNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2012-03-11 17:04:25.91</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<InTransaction>true</InTransaction>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2012-03-11 13:42:49.82</CreatedDate>
+		<ModifiedBy>EFACS_Admin</ModifiedBy>
+		<ModifiedDate>2012-03-11 18:13:09.91</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>firstGo</Comment>
+		<IsEnabled>true</IsEnabled>
+		<EventType>2</EventType>
+		<EventNumber>1</EventNumber>
+		<ControlID>h_318165317</ControlID>
+		<ControlName>priceListLookup.priceListID (frmEntitySalesOrder)</ControlName>
+		<ControlType>1</ControlType>
+		<ApplicationName>ManageSalesOrders</ApplicationName>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>/* This program should check for a change of the Price List on the Sales Order Header screen
+and ask the user IF they want to change the Price on ALL of the Order lines to this price List.
+IF the y click YES then loop through th orders seeing if there is a price on the Price List
+then update the line 
+IWD - RAD 23/03/2012
+*/var priceLookupError =0;
+var eqlString = &quot;Nowt&quot;, eqlBase = &quot;Nowt&quot;;
+if (getFormFieldByAdaptID(&quot;h1993031010&quot;).getValue() != &quot;&quot;)
+{
+try
+{
+ var priceList = getFormFieldByAdaptID(&quot;h_318165317&quot;).getValue();
+ //showInformationMessageBox(&quot;Value&quot;+priceList, new MessageBoxButton(&quot;Ok&quot;));
+ var priceListLookupEntity = COMPANY_ENTITY_MANAGER.find(&quot;PriceListLookup&quot;, new Array(priceList));
+ if (priceListLookupEntity!=null)
+ {
+	var salesItem=1;
+	var objSOrder = getBusinessObject(&quot;SalesOrderBean&quot;);
+	var SOrderNo = getFormFieldByAdaptID(&quot;h1993031010&quot;).getValue();
+//	var SOrderNo = getFormByAdaptID(&quot;h1086312101&quot;).getField(&quot;salesOrderID&quot;).getValue();
+	var SOrderEntity = objSOrder.get(SOrderNo);
+	if (SOrderEntity != null || SOrderEntity.getStatus != &apos;COMPLETE&apos;)
+	{
+		//Check the PriceList has changed
+		var savedPriceList = SOrderEntity.priceListLookup.getPriceListID();
+		if ((priceList == savedPriceList) || (priceList == &quot;&quot;))
+		{
+			// Do  nothing
+			showInformationMessageBox(&quot;Prices have not been updated&quot;, new MessageBoxButton(&quot;Ok&quot;));
+		}
+		else
+		{
+		var ans = showQuestionMessageBox(&quot;Do you want to Replace ALL the Prices on your SalesOrder lines with the Prices on the : &lt;&quot; + priceList+ &quot;&gt; pricelist?&quot;, new MessageBoxButton(&quot;Yes&quot;), new MessageBoxButton(&quot;No&quot;));
+		if (ans == &quot;Yes&quot;)
+		{
+			var cal = Packages.java.util.Calendar.getInstance(); // This gets todays a calendar object
+			var tval = cal.getTime(); // this gets todays date in a date time format  GOOD CODE SAVE BUT Take out of the final version 
+			mval = cal.get(Packages.java.util.Calendar.MONTH) + 1;
+			var tdval = cal.get(Packages.java.util.Calendar.DATE) + &quot;/&quot; + mval + &quot;/&quot; + cal.get(Packages.java.util.Calendar.YEAR);
+//****
+ 			var salesItemEntity = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrderItem&quot;, new Array(SOrderNo,salesItem));
+			while (salesItemEntity != null)  
+			{
+//			showInformationMessageBox(&quot;B4 IF: &quot;, new MessageBoxButton(&quot;Ok&quot;));
+			if (salesItemEntity.getStatus != &apos;COMPLETE&apos; || salesItemEntity.getRemainingQuantity()==salesItemEntity.getTraderQuantity());  //ie some of the stuff has not been delivered (then don&apos;t update)
+			  {
+//				showInformationMessageBox(&quot;IN IF: &quot;, new MessageBoxButton(&quot;Ok&quot;));
+				var partNo = salesItemEntity.part.getPartID();
+				var qty = salesItemEntity.getRemainingQuantity();
+				var dueDate = salesItemEntity.getDueDate();
+//				showInformationMessageBox(&quot;Today Is tdval: &quot;+tdval, new MessageBoxButton(&quot;Ok&quot;));
+				priceLookupError = 0;
+				try
+				{
+					eqlBase = &quot;from PriceListLookup pll join pll.priceListItems pli where pll.priceListID = &apos;&quot; + priceList + &quot;&apos; and pli.toDate &gt; &apos;&quot;+dueDate + &quot;&apos; and pli.fromDate &lt; &apos;&quot; + dueDate+ &quot;&apos; and pli.partID = &apos;&quot;+partNo+&quot;&apos; and pli.breakQuantity&quot;;
+					eqlString = &quot;select pli.unitPrice &quot;+eqlBase+&quot; = (select max(pli.breakQuantity) &quot;+eqlBase+&quot; &lt; &quot;+qty+&quot;)&quot;;
+					var unitPrice = COMPANY_ENTITY_MANAGER.createQuery(eqlString).getSingleResult();	
+				// Could do with something clever here to catch the 0 row as I think it is just erroring out IWD 17/03/12
+//					showInformationMessageBox(&quot;SQL Is: &quot;+&quot;\t\t&quot;+eqlString+&quot;  ?&quot;, new MessageBoxButton(&quot;Ok&quot;));
+				}
+				catch(error)
+				{
+//					showInformationMessageBox(&quot;EQL IS&quot;+&quot;\t\t&quot;+&quot;- : &quot;+&quot;\r&quot;+&quot;\n&quot;+&quot;\r&quot;+&quot;\n&quot;+&quot;\t&quot;+eqlString, new MessageBoxButton(&quot;Ok&quot;));
+					showInformationMessageBox(&quot;HERE is Error on price Lookup: &quot;+&quot;\r&quot;+&quot;\n&quot;+&quot;\r&quot;+&quot;\n&quot;+&quot;\t&quot;+error, new MessageBoxButton(&quot;Ok&quot;));
+					priceLookupError = 1;
+				}
+//				showInformationMessageBox(&quot;B4 IF err Is: &quot;+priceLookupError+&quot;\r&quot;+&quot;\n&quot;+&quot;\r&quot;+&quot;\n&quot;+&quot;NewLine?&quot;, new MessageBoxButton(&quot;Ok&quot;));
+				if(priceLookupError==0)
+				{
+//					showInformationMessageBox(&quot;price Is: &quot;+unitPrice+&quot;\r&quot;+&quot;\n&quot;+&quot;\r&quot;+&quot;\n&quot;+&quot;NewLine?&quot;, new MessageBoxButton(&quot;Ok&quot;));
+					var discMultiplier = (100-salesItemEntity.getDiscountPercentage())/100; //more brackets?
+//					showInformationMessageBox(&quot;Multiplier Is: &quot;+discMultiplier+&quot;\r&quot;+&quot;\n&quot;+&quot;\r&quot;+&quot;\n&quot;+&quot;NewLine?&quot;, new MessageBoxButton(&quot;Ok&quot;));
+//					showInformationMessageBox(&quot;After set Discount: &quot;+unitPrice, new MessageBoxButton(&quot;Ok&quot;));
+					salesItemEntity.setUnitPrice(unitPrice);
+					salesItemEntity.setTraderUnitPrice(unitPrice);
+					var nettPrice = parseInt(unitPrice*qty*discMultiplier*100)/100;
+//					showInformationMessageBox(&quot;Nett Is: &quot;+nettPrice, new MessageBoxButton(&quot;Ok&quot;));
+//					showInformationMessageBox(&quot;VAT% Is: &quot;+salesItemEntity.getVATPercentage()+&quot;\r&quot;+&quot;\n&quot;+&quot;\r&quot;+&quot;\n&quot;+&quot;NewLine?&quot;, new MessageBoxButton(&quot;Ok&quot;));
+					salesItemEntity.setNettPrice(java.math.BigDecimal.valueOf(nettPrice)); //bigDecimal=bigDecimal*Double .
+					salesItemEntity.setDiscountValue(java.math.BigDecimal.valueOf(roundVal((1-discMultiplier)*unitPrice*qty)));
+//					showInformationMessageBox(&quot;After uP*qty&quot;, new MessageBoxButton(&quot;Ok&quot;));
+					var vatValue = roundVal((unitPrice*qty*discMultiplier*salesItemEntity.getVATPercentage())/100)
+					salesItemEntity.setVATValue(java.math.BigDecimal.valueOf(vatValue));  //VATPercentage is Double too
+//					showInformationMessageBox(&quot;Nett Price : &quot;+nettPrice+&quot;, VAT: &quot;+vatValue, new MessageBoxButton(&quot;Ok&quot;));
+					// Foreign stuff
+					var exRate = SOrderEntity.getExchangeRate();
+					salesItemEntity.setForeignUnitPrice(java.math.BigDecimal.valueOf(roundVal(unitPrice*exRate)));
+					var fNettPrice = roundVal(nettPrice*exRate);
+					salesItemEntity.setForeignNettPrice(java.math.BigDecimal.valueOf(fNettPrice));
+					salesItemEntity.setForeignDiscountValue(java.math.BigDecimal.valueOf(roundVal((1-discMultiplier)*unitPrice*qty*exRate)));
+					salesItemEntity.setForeignVATValue(java.math.BigDecimal.valueOf(roundVal(vatValue*exRate))); 
+					salesItemEntity.setForeignUnitPrice(java.math.BigDecimal.valueOf(roundVal(unitPrice*exRate)));
+					salesItemEntity.setForeignTraderUnitPrice(java.math.BigDecimal.valueOf(roundVal(unitPrice*exRate)));
+					//...
+				}
+				else
+				{
+				// Do Nothing
+				showInformationMessageBox(&quot;There was an Error on Line: &quot;+salesItem+&quot;, the price was not updated&quot; , new MessageBoxButton(&quot;Ok&quot;));
+				}
+			  }
+			salesItem ++;
+			salesItemEntity = COMPANY_ENTITY_MANAGER.find(&quot;SalesOrderItem&quot;, new Array(SOrderNo,salesItem));
+			priceLookupError =0;
+			}	
+		}
+	}
+}
+}
+}
+catch(error)
+{
+	showInformationMessageBox(&quot;Addapt Error Is: &quot;+error, new MessageBoxButton(&quot;Ok&quot;));	
+}
+
+}
+
+function roundVal(val)
+{
+var dec = 2; //chg&apos;d to 2 from 3 25/03/12 IWD
+//	showInformationMessageBox(&quot; in fn b4 &quot;, new MessageBoxButton(&quot;Ok&quot;));
+var result = Math.round(val*Math.pow(10,dec))/Math.pow(10,dec);
+//	showInformationMessageBox(&quot; in fn aft Calc &quot;, new MessageBoxButton(&quot;Ok&quot;));
+return result;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</Code>
+		<EventNumber>1</EventNumber>
+		<RevisionSerial>197</RevisionSerial>
+		<RevisionNumber>171</RevisionNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2012-03-25 11:27:31.27</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<InTransaction>true</InTransaction>
+		<CreatedBy>EFACS_Admin</CreatedBy>
+		<CreatedDate>2011-10-26 21:17:10.14</CreatedDate>
+		<ModifiedBy>EFACS_Admin</ModifiedBy>
+		<ModifiedDate>2011-10-30 21:13:12.653</ModifiedDate>
+	</AdaptEventEntity>
+</xml>

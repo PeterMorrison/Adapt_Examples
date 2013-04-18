@@ -1,0 +1,479 @@
+<?xml version="1.0"?>
+<xml>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>Action for Shipped by Supplier button</Comment>
+		<IsEnabled>false</IsEnabled>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>var javaImports = JavaImporter();
+javaImports.importPackage(Packages.uk.co.exel.bespokeutilities);
+var grid = javaImports.BespokeUtilities.getObjectById(DOCUMENT, &quot;h_489455060&quot;);
+var recordSelected = (grid.getQuery().getRecordManager().getSelectedRecords().size() &gt; 0);
+
+if (!recordSelected) {
+	showWarningMessageBox(
+		&quot;You have not selected a purchase order from the grid.&quot;,
+		new MessageBoxButton(&quot;OK&quot;, &quot;Green checkmark&quot;));
+	
+	return false;
+}
+
+var purchaseOrderID = grid.getQuery().getRecordManager().getSelectedRecords().get(0).getRecordKey(0);
+out.println(purchaseOrderID);
+
+var poe = COMPANY_ENTITY_MANAGER.find(&quot;PurchaseOrder&quot;, new Array(purchaseOrderID));
+var poce = poe.getCustom().get(0);
+
+if (poce.getShippedBySupplier() == null || poce.getShippedBySupplier() == 0 || poce.getShippedBySupplier() == false) {
+	poce.setShippedBySupplier(true);
+	COMPANY_ENTITY_MANAGER.merge(poe);
+} else {
+	showWarningMessageBox(
+		&quot;This purchase order has already been shipped to the supplier.&quot;,
+		new MessageBoxButton(&quot;OK&quot;, &quot;Green checkmark&quot;));
+	
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</Code>
+		<RevisionSerial>364</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<EventNumber>36</EventNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>rak</CreatedBy>
+		<CreatedDate>2010-07-01 16:06:54.477</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<ControlType>5</ControlType>
+		<EventType>3</EventType>
+		<EventNumber>36</EventNumber>
+		<ControlID>h283281395</ControlID>
+		<ControlName>Shipped by supplier (h836086691)</ControlName>
+		<ApplicationName>ManagePurchaseOrders</ApplicationName>
+		<InTransaction>true</InTransaction>
+		<CreatedBy>rak</CreatedBy>
+		<CreatedDate>2010-07-01 16:06:54.473</CreatedDate>
+		<ModifiedBy>rak</ModifiedBy>
+		<ModifiedDate>Thu Aug 26 11:27:40 BST 2010</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>Action for Received by customer button</Comment>
+		<IsEnabled>false</IsEnabled>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>var javaImports = JavaImporter();
+javaImports.importPackage(Packages.uk.co.exel.bespokeutilities);
+var grid = javaImports.BespokeUtilities.getObjectById(DOCUMENT, &quot;h_489455060&quot;);
+var recordSelected = (grid.getQuery().getRecordManager().getSelectedRecords().size() &gt; 0);
+
+if (!recordSelected) {
+	showWarningMessageBox(
+		&quot;You have not selected a purchase order from the grid.&quot;,
+		new MessageBoxButton(&quot;OK&quot;, &quot;Green checkmark&quot;));
+	
+	return false;
+}
+
+var purchaseOrderID = grid.getQuery().getRecordManager().getSelectedRecords().get(0).getRecordKey(0);
+
+var poe = COMPANY_ENTITY_MANAGER.find(&quot;PurchaseOrder&quot;, new Array(purchaseOrderID));
+var poce = poe.getCustom().get(0);
+if (poce.getReceivedByCustomer() == null || poce.getReceivedByCustomer() == 0 || poce.getReceivedByCustomer() == false) {
+	poce.setReceivedByCustomer(true);
+	COMPANY_ENTITY_MANAGER.merge(poe);
+} else {
+	showWarningMessageBox(
+		&quot;This purchase order has already been received by the customer.&quot;,
+		new MessageBoxButton(&quot;OK&quot;, &quot;Green checkmark&quot;));
+	
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+</Code>
+		<RevisionSerial>365</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<EventNumber>37</EventNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>rak</CreatedBy>
+		<CreatedDate>2010-07-01 16:06:54.483</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<ControlType>5</ControlType>
+		<EventType>3</EventType>
+		<EventNumber>37</EventNumber>
+		<ControlID>h1108414135</ControlID>
+		<ControlName>Received by customer (h836086691)</ControlName>
+		<ApplicationName>ManagePurchaseOrders</ApplicationName>
+		<InTransaction>true</InTransaction>
+		<CreatedBy>rak</CreatedBy>
+		<CreatedDate>2010-07-01 16:06:54.48</CreatedDate>
+		<ModifiedBy>rak</ModifiedBy>
+		<ModifiedDate>Thu Aug 26 11:27:40 BST 2010</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>Add additional buttons (Shipped by supplier and Received by customer)</Comment>
+		<IsEnabled>false</IsEnabled>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>var javaImports = JavaImporter();
+javaImports.importPackage(Packages.uk.co.exel.sapphire.action);
+javaImports.importPackage(Packages.uk.co.exel.bespokeutilities);
+
+var button = APPLICATION.getFactory().newToolbarButton(APPLICATION, &quot;shippedBySupplier&quot;, &quot;Shipped by supplier&quot;, &quot;Parcel Dispatch&quot;);
+button.setGUID(&quot;7AEB8B97-BA26-4CC2-B689-085E1FD547A3&quot;);
+
+var button2 = APPLICATION.getFactory().newToolbarButton(APPLICATION, &quot;receivedByCustomer&quot;, &quot;Received by customer&quot;, &quot;User 1&quot;);
+button2.setGUID(&quot;34933391-34F8-4373-99B0-B5DBAB622ECA&quot;);
+
+var objAction = { onClick: function () {
+	var javaImports = JavaImporter();
+	javaImports.importPackage(Packages.uk.co.exel.bespokeutilities);
+	var grid = javaImports.BespokeUtilities.getObjectById(DOCUMENT, &quot;h_489455060&quot;);
+	grid.getParent().search();
+}}
+
+button.addAjaxListener(new javaImports.ClickActionListener(objAction));
+button2.addAjaxListener(new javaImports.ClickActionListener(objAction));
+
+var toolbar = javaImports.BespokeUtilities.getObjectById(DOCUMENT, &quot;h836086691&quot;);
+
+button.setDocument(toolbar.getDocument());
+button2.setDocument(toolbar.getDocument());
+button.attachEvents();
+button2.attachEvents();
+toolbar.add(button);
+toolbar.add(button2);
+
+toolbar.refreshAjax();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</Code>
+		<RevisionSerial>366</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<EventNumber>38</EventNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>rak</CreatedBy>
+		<CreatedDate>2010-07-01 16:06:54.487</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<ControlType>5</ControlType>
+		<EventType>4</EventType>
+		<EventNumber>38</EventNumber>
+		<ControlID>h427537665</ControlID>
+		<ControlName>Search (h547989960)</ControlName>
+		<ApplicationName>ManagePurchaseOrders</ApplicationName>
+		<InTransaction>true</InTransaction>
+		<CreatedBy>rak</CreatedBy>
+		<CreatedDate>2010-07-01 16:06:54.487</CreatedDate>
+		<ModifiedBy>rak</ModifiedBy>
+		<ModifiedDate>Thu Aug 26 11:27:40 BST 2010</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>Inform user of potential higher discount rate.</Comment>
+		<IsEnabled>false</IsEnabled>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>if (DOCUMENT == null) {
+	return true;	
+}
+
+var supplierID = Packages.uk.co.exel.bespokeutilities.BespokeUtilities.getObjectById(DOCUMENT, &quot;h845106692&quot;).getValue();
+var partID = CURRENT_FORM.getField(&quot;part.partID&quot;).getValue();
+var quantity = CURRENT_FIELD.getValue();
+
+if (partID == null || partID == &quot;&quot; || quantity == 1) {
+	return true;
+}
+
+var query = COMPANY_ENTITY_MANAGER.createQuery(
+	&quot;FROM SupplierPartQuantityPriceBreak &quot; + 
+	&quot;WHERE key.supplier = :supplierID &quot; + 
+	&quot;AND key.part = :partID &quot; + 
+	&quot;AND key.quantityBreak &gt; :currentQty &quot;);
+
+query.setParameter(&quot;supplierID&quot;, supplierID);
+query.setParameter(&quot;partID&quot;, partID);
+query.setParameter(&quot;currentQty&quot;, quantity);
+
+var quantityBreaks = query.getResultList();
+
+if (!quantityBreaks.isEmpty()) {
+	var response = showWarningMessageBox(
+		&quot;A discount of &quot; + 
+		quantityBreaks.get(0).getDiscount() + &quot;%&quot; +
+		&quot; is available from this supplier when ordering a quantity of &quot; +
+		quantityBreaks.get(0).getKey().getQuantityBreak() +
+		&quot; or more. \n\nDo you want to order this quantity instead?&quot;,
+		new MessageBoxButton(&quot;Yes&quot;, &quot;Green checkmark&quot;), 
+		new MessageBoxButton(&quot;No&quot;, &quot;Red Delete&quot;));
+
+	if (response == &quot;Yes&quot;) {
+		CURRENT_FORM.getField(&quot;discountPercentage&quot;)
+			.setValue(quantityBreaks.get(0).getDiscount());
+		CURRENT_FIELD.setValue(
+			quantityBreaks.get(0).getKey().getQuantityBreak());
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</Code>
+		<RevisionSerial>367</RevisionSerial>
+		<RevisionNumber>1</RevisionNumber>
+		<EventNumber>39</EventNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>rak</CreatedBy>
+		<CreatedDate>2010-07-01 16:06:54.49</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<ControlType>1</ControlType>
+		<EventType>2</EventType>
+		<EventNumber>39</EventNumber>
+		<ControlID>h734593676</ControlID>
+		<ControlName>stockedQuantity (frmEntityPurchaseOrderItem)</ControlName>
+		<ApplicationName>ManagePurchaseOrderItems</ApplicationName>
+		<InTransaction>true</InTransaction>
+		<CreatedBy>rak</CreatedBy>
+		<CreatedDate>2010-07-01 16:06:54.49</CreatedDate>
+		<ModifiedBy>rak</ModifiedBy>
+		<ModifiedDate>Thu Aug 26 11:27:40 BST 2010</ModifiedDate>
+	</AdaptEventEntity>
+	<AdaptEventEntity>
+		<Priority>1</Priority>
+		<Comment>Check for fixed order quantity</Comment>
+		<IsEnabled>false</IsEnabled>
+		<Revisions>
+		<AdaptRevisionEntity>
+		<Code>getFormFieldByAdaptID(&quot;h1138632717&quot;).enable();
+getFormFieldByAdaptID(&quot;h734593676&quot;).enable();
+
+var partID = CURRENT_FIELD.getValue();
+var supplierID = getFormFieldByAdaptID(&quot;h845106692&quot;).getValue();
+
+if (partID == null || partID == &quot;&quot;) {
+	return true;
+}
+
+var query = COMPANY_ENTITY_MANAGER.createQuery(
+	&quot;SELECT key.supplierID FROM SupplierPart &quot; + 
+	&quot;WHERE supplierPreference = 1 &quot; + 
+	&quot;AND key.partID = :partID&quot;);
+query.setParameter(&quot;partID&quot;, partID);
+
+var results = query.getResultList();
+
+if (!results.isEmpty()) {
+	var prefSupplier = results.get(0);
+	if (!prefSupplier.equals(supplierID)) {
+		showInformationMessageBox(&quot;This part can only be purchased from the prefered Supplier &quot; + prefSupplier + 
+		&quot;.\r\n The current Purchase Order is for Supplier &quot; + supplierID, new MessageBoxButton(&quot;OK&quot;));
+		CURRENT_FIELD.setAsInvalid(&quot;This part can only be purchased from the prefered supplier &quot; + prefSupplier);
+		return false;
+	}
+}
+
+
+query = COMPANY_ENTITY_MANAGER.createQuery(
+	&quot;SELECT fixedOrderQuantity FROM SupplierPartCustom &quot; + 
+	&quot;WHERE key.supplierID = :supplierID &quot; + 
+	&quot;AND key.partID = :partID&quot;);
+query.setParameter(&quot;supplierID&quot;, supplierID);
+query.setParameter(&quot;partID&quot;, partID);
+
+results = query.getResultList();
+
+if (results.isEmpty()) {	
+	return true;
+}
+
+var foq = results.get(0);
+showInformationMessageBox(&quot;This part has a fixed order quantity of &quot; + foq + 
+&quot;\r\n This will be applied and cannot be altered.&quot;, new MessageBoxButton(&quot;OK&quot;));
+
+
+if (foq &gt; 0) {
+	getFormFieldByAdaptID(&quot;h1138632717&quot;).setValue(foq);
+	getFormFieldByAdaptID(&quot;h1138632717&quot;).disable();
+	getFormFieldByAdaptID(&quot;h734593676&quot;).disable();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</Code>
+		<RevisionSerial>399</RevisionSerial>
+		<RevisionNumber>15</RevisionNumber>
+		<EventNumber>35</EventNumber>
+		<IsLatest>true</IsLatest>
+		<CreatedBy>rak</CreatedBy>
+		<CreatedDate>2010-07-26 11:43:23.56</CreatedDate>
+		<ModifiedBy isNull="true"></ModifiedBy>
+		<ModifiedDate isNull="true"></ModifiedDate>
+		</AdaptRevisionEntity>
+		</Revisions>
+		<ControlType>1</ControlType>
+		<EventType>2</EventType>
+		<EventNumber>35</EventNumber>
+		<ControlID>h977048917</ControlID>
+		<ControlName>part.partID (frmEntityPurchaseOrderItem)</ControlName>
+		<ApplicationName>ManagePurchaseOrderItems</ApplicationName>
+		<InTransaction>true</InTransaction>
+		<CreatedBy>rak</CreatedBy>
+		<CreatedDate>2010-07-01 16:06:54.427</CreatedDate>
+		<ModifiedBy>rak</ModifiedBy>
+		<ModifiedDate>Thu Aug 26 11:27:40 BST 2010</ModifiedDate>
+	</AdaptEventEntity>
+</xml>
